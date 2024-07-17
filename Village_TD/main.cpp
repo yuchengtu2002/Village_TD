@@ -6,13 +6,15 @@
 #include <SDL_mixer.h>
 #include <SDL_ttf.h>
 #include <SDL2_gfxPrimitives.h>
+#include "Manager.h"
+#include "game_manager.h"
 
 
 using namespace std;
 
 int main() {
 
-
+	GameManager* instance = GameManager::instance();
 
 
 
