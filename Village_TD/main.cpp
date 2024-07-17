@@ -12,11 +12,8 @@
 
 using namespace std;
 
-int main() {
+int main(int argc, char** argv) {
 
-	GameManager* instance = GameManager::instance();
+	return GameManager::instance()->run();
 
-
-
-	return 0;
 }
