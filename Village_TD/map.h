@@ -5,6 +5,8 @@
 #include <SDL.h>
 #include <fstream>
 #include <sstream>
+#include <unordered_map>
+#include "route.h"
 
 
 //remove leading and trailing whitespaces and tabs
@@ -18,6 +20,10 @@ std::string trim_str(const std::string& str) {
 
 class Map
 {
+
+public:
+	typedef std::unordered_map<int, Route> SpawnerRoutePool;
+
 public:
 	Map() = default;
 	~Map() = default;
