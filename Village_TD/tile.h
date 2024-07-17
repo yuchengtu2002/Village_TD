@@ -5,6 +5,9 @@
 
 #define TILE_SIZE 48
 
+typedef std::vector<std::vector<Tile>> TileMap;
+
+
 struct Tile {
 
 	enum class Direction {
@@ -24,7 +27,6 @@ struct Tile {
 
 };
 
-typedef std::vector<std::vector<Tile>> TileMap;
 
 
 #endif // !_TILE_H_
