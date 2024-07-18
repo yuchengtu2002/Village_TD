@@ -19,6 +19,9 @@
     <Filter Include="头文件\manager">
       <UniqueIdentifier>{94c3f7e9-77d4-46bb-85fa-d39cbfb4d12a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\enemy">
+      <UniqueIdentifier>{e7431a2e-0f60-4ddd-bf6f-614eb54850f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -46,6 +49,15 @@
     </ClInclude>
     <ClInclude Include="route.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="config_manager.h">
+      <Filter>头文件\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="wave.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy_type.h">
+      <Filter>头文件\enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

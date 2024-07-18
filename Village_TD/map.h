@@ -22,7 +22,7 @@ class Map
 {
 
 public:
-	typedef std::unordered_map<int, Route> SpawnerRoutePool;
+	typedef std::unordered_map<int, Route> SpawnRoutePool;
 
 public:
 	Map() = default;
@@ -75,9 +75,33 @@ public:
 		return tile_map.size(); 
 	}
 
+	const TileMap& get_tile_map() const { 
+		return tile_map; 
+	}
+
+	const SDL_Point& get_home_idx() const { 
+		return home_idx; 
+	}
+
+	const SpawnRoutePool& get_spawn_route_pool() const { 
+		return spawn_route_pool; 
+	}
+
+	const Route& get_spawn_route(int route_id) const {
+		auto it = spawn_route_pool.find(route_id);
+		if (it == spawn_route_pool.end()) return Route();
+		return it->second;
+	}
+
+	void place_tower(const SDL_Point& idx) {
+		if (idx.x < 0 || idx.x >= get_width() || idx.y < 0 || idx.y >= get_height()) return;
+		tile_map[idx.y][idx.x].has_tower = true;
+	}
+
 private:
 	TileMap tile_map;
 	SDL_Point home_idx = { 0, 0 };
+	SpawnRoutePool spawn_route_pool;
 
 
 	void load_tile_from_string(Tile& tile, const std::string& str_tile) {
@@ -107,10 +131,17 @@ private:
 			for (int x = 0; x < get_height(); x++) {
 				Tile& tile = tile_map[y][x];
 
+				//nothing special at this tile
 				if (tile.special_flag < 0) continue;
 
+				//home idx tile
 				if (tile.special_flag == 0) {
 					home_idx = { x, y };
+				}
+
+				//spawn tile, populate spawn route pool
+				else {
+					spawn_route_pool[tile.special_flag] = Route(tile_map, { x, y };
 				}
 			}
 		}
