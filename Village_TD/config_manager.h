@@ -185,7 +185,186 @@ public:
 	}
 
 	bool load_game_config(const std::string& path) {
-	
+		std::ifstream file(path);
+		if (!file.good()) return false;
+
+		std::stringstream str_stream;
+		str_stream << file.rdbuf();
+		file.close();
+		
+		cJSON* json_root = cJSON_Parse(str_stream.str().c_str());
+		if (!json_root || json_root->type != cJSON_Object) {
+			std::cerr << "Error: " << cJSON_GetErrorPtr() << std::endl;
+			return false;
+		}
+
+		cJSON* json_basic = cJSON_GetObjectItem(json_root, "basic");
+		cJSON* json_player = cJSON_GetObjectItem(json_root, "player");
+		cJSON* json_tower = cJSON_GetObjectItem(json_root, "tower");
+		cJSON* json_enemy = cJSON_GetObjectItem(json_root, "enemy");
+
+		if (!json_basic || !json_player || !json_tower || !json_enemy
+			|| json_basic->type != cJSON_Object
+			|| json_player->type != cJSON_Object
+			|| json_tower->type != cJSON_Object
+			|| json_enemy->type != cJSON_Object) {
+
+			cJSON_Delete(json_root);
+			std::cerr << "Error: invalid json format" << std::endl;
+			return false;
+		}
+	}
+
+private:
+	void parse_basic_template(BasicTemplate& tpl, cJSON* json_root) {
+		if (!json_root || json_root->type != cJSON_Object) return;
+
+		cJSON* json_window_title = cJSON_GetObjectItem(json_root, "window_title");
+		if (json_window_title && json_window_title->type == cJSON_String) {
+			tpl.window_title = json_window_title->valuestring;
+		}
+
+		cJSON* json_window_width = cJSON_GetObjectItem(json_root, "window_width");
+		if (json_window_width && json_window_width->type == cJSON_Number) {
+			tpl.window_width = json_window_width->valueint;
+		}
+
+		cJSON* json_window_height = cJSON_GetObjectItem(json_root, "window_height");
+		if (json_window_height && json_window_height->type == cJSON_Number) {
+			tpl.window_height = json_window_height->valueint;
+		}
+	}
+
+	void parse_player_template(playerTemplate& tpl, cJSON* json_root) {
+		if (!json_root || json_root->type != cJSON_Object) return;
+
+		cJSON* json_speed = cJSON_GetObjectItem(json_root, "speed");
+		if (json_speed && json_speed->type == cJSON_Number) {
+			tpl.speed = json_speed->valuedouble;
+		}
+
+		cJSON* json_normal_attack_interval = cJSON_GetObjectItem(json_root, "normal_attack_interval");
+		if (json_normal_attack_interval && json_normal_attack_interval->type == cJSON_Number) {
+			tpl.normal_attack_interval = json_normal_attack_interval->valuedouble;
+		}
+
+		cJSON* json_nomral_attack_damage = cJSON_GetObjectItem(json_root, "nomral_attack_damage");
+		if (json_nomral_attack_damage && json_nomral_attack_damage->type == cJSON_Number) {
+			tpl.nomral_attack_damage = json_nomral_attack_damage->valuedouble;
+		}
+
+		cJSON* json_skill_interval = cJSON_GetObjectItem(json_root, "skill_interval");
+		if (json_skill_interval && json_skill_interval->type == cJSON_Number) {
+			tpl.skill_interval = json_skill_interval->valuedouble;
+		}
+
+		cJSON* json_skill_damage = cJSON_GetObjectItem(json_root, "skill_damage");
+		if (json_skill_damage && json_skill_damage->type == cJSON_Number) {
+			tpl.skill_damage = json_skill_damage->valuedouble;
+		}
+	}
+
+	void parse_tower_template(towerTemplate& tpl, cJSON* json_root) {
+		if (!json_root || json_root->type != cJSON_Object) return;
+
+		cJSON* json_interval = cJSON_GetObjectItem(json_root, "interval");
+		if (json_interval && json_interval->type == cJSON_Array) {
+			cJSON* json_interval_item = nullptr;
+			int i = 0;
+			cJSON_ArrayForEach(json_interval_item, json_interval) {
+				if (json_interval_item->type == cJSON_Number) {
+					tpl.interval[i] = json_interval_item->valuedouble;
+					i++;
+				}
+			}
+		}
+
+		cJSON* json_damage = cJSON_GetObjectItem(json_root, "damage");
+		if (json_damage && json_damage->type == cJSON_Array) {
+			cJSON* json_damage_item = nullptr;
+			int i = 0;
+			cJSON_ArrayForEach(json_damage_item, json_damage) {
+				if (json_damage_item->type == cJSON_Number) {
+					tpl.damage[i] = json_damage_item->valuedouble;
+					i++;
+				}
+			}
+		}
+
+		cJSON* json_range = cJSON_GetObjectItem(json_root, "view_range");
+		if (json_range && json_range->type == cJSON_Array) {
+			cJSON* json_range_item = nullptr;
+			int i = 0;
+			cJSON_ArrayForEach(json_range_item, json_range) {
+				if (json_range_item->type == cJSON_Number) {
+					tpl.range[i] = json_range_item->valuedouble;
+					i++;
+				}
+			}
+		}
+
+		cJSON* json_build_cost = cJSON_GetObjectItem(json_root, "build_cost");
+		if (json_build_cost && json_build_cost->type == cJSON_Array) {
+			cJSON* json_build_cost_item = nullptr;
+			int i = 0;
+			cJSON_ArrayForEach(json_build_cost_item, json_build_cost) {
+				if (json_build_cost_item->type == cJSON_Number) {
+					tpl.build_cost[i] = json_build_cost_item->valuedouble;
+					i++;
+				}
+			}
+		}
+
+		cJSON* json_upgrade_cost = cJSON_GetObjectItem(json_root, "upgrade_cost");
+		if (json_upgrade_cost && json_upgrade_cost->type == cJSON_Array) {
+			cJSON* json_upgrade_cost_item = nullptr;
+			int i = 0;
+			cJSON_ArrayForEach(json_upgrade_cost_item, json_upgrade_cost) {
+				if (json_upgrade_cost_item->type == cJSON_Number) {
+					tpl.upgrade_cost[i] = json_upgrade_cost_item->valuedouble;
+					i++;
+				}
+			}
+		}
+	}
+
+	void parse_enemy_template(enemyTemplate& tpl, cJSON* json_root) {
+		if (!json_root || json_root->type != cJSON_Object) return;
+
+		cJSON* json_speed = cJSON_GetObjectItem(json_root, "speed");
+		if (json_speed && json_speed->type == cJSON_Number) {
+			tpl.speed = json_speed->valuedouble;
+		}
+
+		cJSON* json_hp = cJSON_GetObjectItem(json_root, "hp");
+		if (json_hp && json_hp->type == cJSON_Number) {
+			tpl.hp = json_hp->valuedouble;
+		}
+
+		cJSON* json_damage = cJSON_GetObjectItem(json_root, "damage");
+		if (json_damage && json_damage->type == cJSON_Number) {
+			tpl.damage = json_damage->valuedouble;
+		}
+
+		cJSON* json_reward_ratio = cJSON_GetObjectItem(json_root, "reward_ratio");
+		if (json_reward_ratio && json_reward_ratio->type == cJSON_Number) {
+			tpl.reward_ratio = json_reward_ratio->valuedouble;
+		}
+
+		cJSON* json_recover_interval = cJSON_GetObjectItem(json_root, "recover_interval");
+		if (json_recover_interval && json_recover_interval->type == cJSON_Number) {
+			tpl.recover_interval = json_recover_interval->valuedouble;
+		}
+
+		cJSON* json_recover_range = cJSON_GetObjectItem(json_root, "recover_range");
+		if (json_recover_range && json_recover_range->type == cJSON_Number) {
+			tpl.recover_range = json_recover_range->valuedouble;
+		}
+
+		cJSON* json_recover_amount = cJSON_GetObjectItem(json_root, "recover_amount");
+		if (json_recover_amount && json_recover_amount->type == cJSON_Number) {
+			tpl.recover_amount = json_recover_amount->valuedouble;
+		}
 	}
 };	 
 
