@@ -213,6 +213,23 @@ public:
 			std::cerr << "Error: invalid json format" << std::endl;
 			return false;
 		}
+		parse_basic_template(basic_template, json_basic);
+
+		parse_player_template(player_template, json_player);
+
+		parse_tower_template(archer_template, cJSON_GetObjectItem(json_tower, "archer"));
+		parse_tower_template(axeman_template, cJSON_GetObjectItem(json_tower, "axeman"));
+		parse_tower_template(gunner_template, cJSON_GetObjectItem(json_tower, "gunner"));
+
+		parse_enemy_template(slim_template, cJSON_GetObjectItem(json_enemy, "slim"));
+		parse_enemy_template(slim_king_template, cJSON_GetObjectItem(json_enemy, "slim_king"));
+		parse_enemy_template(skeleton_template, cJSON_GetObjectItem(json_enemy, "skeleton"));
+		parse_enemy_template(goblin_template, cJSON_GetObjectItem(json_enemy, "goblin"));
+		parse_enemy_template(goblin_preest_template, cJSON_GetObjectItem(json_enemy, "goblin_priest"));
+
+		cJSON_Delete(json_root);
+		return true;
+
 	}
 
 private:

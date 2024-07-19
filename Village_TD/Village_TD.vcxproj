@@ -141,6 +141,7 @@
     <ClInclude Include="enemy_type.h" />
     <ClInclude Include="manager.h" />
     <ClInclude Include="map.h" />
+    <ClInclude Include="resource_manager.h" />
     <ClInclude Include="route.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="wave.h" />
