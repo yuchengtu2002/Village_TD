@@ -120,6 +120,7 @@
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalIncludeDirectories>..\thirdParty\SDL2\include;..\thirdParty\SDL2_gfx\include;..\thirdParty\SDL2_image\include;..\thirdParty\SDL2_mixer\include;..\thirdParty\SDL2_ttf\include;..\thirdParty\cJSON\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

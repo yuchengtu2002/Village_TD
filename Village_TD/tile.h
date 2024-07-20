@@ -5,7 +5,6 @@
 
 #define TILE_SIZE 48
 
-typedef std::vector<std::vector<Tile>> TileMap;
 
 
 struct Tile {
@@ -26,6 +25,9 @@ struct Tile {
 	Direction direction = Direction::None;
 
 };
+
+typedef std::vector<std::vector<Tile>> TileMap;
+
 
 
 
