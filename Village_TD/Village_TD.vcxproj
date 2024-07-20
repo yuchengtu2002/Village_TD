@@ -138,8 +138,10 @@
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="animaiton.h" />
     <ClInclude Include="config_manager.h" />
     <ClInclude Include="enemy_type.h" />
+    <ClInclude Include="timer.h" />
     <ClInclude Include="manager.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="resource_manager.h" />
