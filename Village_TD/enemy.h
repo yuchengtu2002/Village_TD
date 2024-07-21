@@ -158,7 +158,7 @@ public:
 		return velocity;
 	}
 
-	double get_damange() const {
+	double get_damage() const {
 		return damage;
 	}
 
