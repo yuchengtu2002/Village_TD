@@ -159,7 +159,7 @@ public:
 	}
 
 	double get_damange() const {
-		return damager;
+		return damage;
 	}
 
 	double get_reward_ratio() const {

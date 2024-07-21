@@ -80,7 +80,7 @@ public:
 	enemyTemplate slim_king_template;
 	enemyTemplate skeleton_template;
 	enemyTemplate goblin_template;
-	enemyTemplate goblin_preest_template;
+	enemyTemplate goblin_preist_template;
 
 		
 	const double initial_hp = 10;
@@ -225,7 +225,7 @@ public:
 		parse_enemy_template(slim_king_template, cJSON_GetObjectItem(json_enemy, "slim_king"));
 		parse_enemy_template(skeleton_template, cJSON_GetObjectItem(json_enemy, "skeleton"));
 		parse_enemy_template(goblin_template, cJSON_GetObjectItem(json_enemy, "goblin"));
-		parse_enemy_template(goblin_preest_template, cJSON_GetObjectItem(json_enemy, "goblin_priest"));
+		parse_enemy_template(goblin_preist_template, cJSON_GetObjectItem(json_enemy, "goblin_priest"));
 
 		cJSON_Delete(json_root);
 		return true;

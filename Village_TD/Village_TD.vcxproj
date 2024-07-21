@@ -143,6 +143,10 @@
     <ClInclude Include="config_manager.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="enemy_type.h" />
+    <ClInclude Include="goblin_enemy.h" />
+    <ClInclude Include="goblin_priest.h" />
+    <ClInclude Include="skeleton_enemy.h" />
+    <ClInclude Include="slim_king_enemy.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="manager.h" />
     <ClInclude Include="map.h" />
