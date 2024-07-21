@@ -20,9 +20,9 @@ protected:
 	ConfigManager() = default;
 	~ConfigManager() = default;
 
-private:
+public:
 	struct BasicTemplate {
-		std::string window_title = "VVillage_TD";	
+		std::string window_title = "Village_TD";	
 		int window_width = 1280;
 		int window_height = 720;
 	};
