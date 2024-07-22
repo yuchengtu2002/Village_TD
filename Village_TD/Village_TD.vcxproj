@@ -167,6 +167,7 @@
     <ClInclude Include="route.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="tower.h" />
+    <ClInclude Include="tower_manager.h" />
     <ClInclude Include="tower_type.h" />
     <ClInclude Include="vector2.h" />
     <ClInclude Include="wave.h" />
