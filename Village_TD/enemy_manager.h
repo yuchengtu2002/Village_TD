@@ -38,7 +38,7 @@ public:
 		static const SDL_Rect& rect_tile_map = ConfigManager::instance()->rect_tile_map;
 		static const Map::SpawnerRoutePool& spawner_route_pool = ConfigManager::instance()->map.get_idx_spawner_pool();
 
-		const auto& it = spawner_route_pool.find(idx_spawn_point);
+		const auto& it = spawner_route_pool.find(idx_spawn_point);  
 		if (it == spawner_route_pool.end()) return;
 
 		Enemy* enemy = nullptr;
@@ -90,6 +90,11 @@ public:
 
 	bool check_cleared() {
 		return enemy_list.empty();
+	}
+
+	EnemyManager::EnemyList& get_enemy_list()
+	{
+		return enemy_list;
 	}
 
 

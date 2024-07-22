@@ -58,7 +58,7 @@ public:
 	Map map;
 	std::vector<Wave> waves;
 	
-	int level_archor = 0;
+	int level_archer = 0;
 	int level_axeman = 0;
 	int level_gunner = 0;
 

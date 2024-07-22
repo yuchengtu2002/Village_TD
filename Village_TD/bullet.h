@@ -27,7 +27,7 @@ public:
 	}
 
 
-	void set_damange(double damange) {
+	void set_damage(double damange) {
 		this->damage = damange;
 	}
 
