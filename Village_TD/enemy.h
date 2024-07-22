@@ -2,7 +2,7 @@
 
 #include "vector2.h"
 #include "timer.h"
-#include "animaiton.h"
+#include "animation.h"
 #include <functional>
 #include "Route.h"
 #include "config_manager.h"

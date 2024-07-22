@@ -139,7 +139,8 @@
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="animaiton.h" />
+    <ClInclude Include="animation.h" />
+    <ClInclude Include="bullet.h" />
     <ClInclude Include="coin_manager.h" />
     <ClInclude Include="config_manager.h" />
     <ClInclude Include="enemy.h" />
