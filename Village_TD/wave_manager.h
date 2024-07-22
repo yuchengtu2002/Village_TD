@@ -30,6 +30,19 @@ public:
 
 		if (is_spawned_last_enemy && EnemyManager::instance()->check_cleared()) {
 			CoinManager::instance()->increase_coin(waves[idx_wave].rewards);
+			idx_wave++;
+
+			if (idx_wave >= config->waves.size()) {
+				config->is_game_win = true;
+				config->is_game_over = true;
+				return;
+			}
+			else {
+				idx_spawn_event = 0;
+				is_wave_started = true;
+				is_spawned_last_enemy = false;
+				timer_start_wave.set_wait_time(waves[idx_wave].interval);
+			}
 		}
 	}
 

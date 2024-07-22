@@ -16,42 +16,42 @@ public:
 		static ConfigManager* config = ConfigManager::instance();
 		static ConfigManager::enemyTemplate& skeleton_template = ConfigManager::instance()->skeleton_template;
 
-		static const std::vector<int> idx_list_up = { 6, 7, 8, 9, 10, 11 };
-		static const std::vector<int> idx_list_down = { 0, 1, 2, 3, 4, 5 };
-		static const std::vector<int> idx_list_right = { 12, 13, 14, 15, 16, 17 };
-		static const std::vector<int> idx_list_left = { 11, 12, 13, 14, 15, 16 };
+		static const std::vector<int> idx_list_up = { 5, 6, 7, 8, 9 };
+		static const std::vector<int> idx_list_down = { 0, 1, 2, 3, 4 };
+		static const std::vector<int> idx_list_left = { 15, 16, 17, 18, 19 };
+		static const std::vector<int> idx_list_right = { 10, 11, 12, 13, 14 };
 
 		anim_up.set_loop(true);
 		anim_up.set_interval(0.1);
-		anim_up.set_frame_data(tex_skeleton, 6, 4, idx_list_up);
+		anim_up.set_frame_data(tex_skeleton, 5, 4, idx_list_up);
 
 		anim_down.set_loop(true);
 		anim_down.set_interval(0.1);
-		anim_down.set_frame_data(tex_skeleton, 6, 4, idx_list_down);
+		anim_down.set_frame_data(tex_skeleton, 5, 4, idx_list_down);
 
 		anim_right.set_loop(true);
 		anim_right.set_interval(0.1);
-		anim_right.set_frame_data(tex_skeleton, 6, 4, idx_list_right);
+		anim_right.set_frame_data(tex_skeleton, 5, 4, idx_list_right);
 
 		anim_left.set_loop(true);
 		anim_left.set_interval(0.1);
-		anim_left.set_frame_data(tex_skeleton, 6, 4, idx_list_left);
+		anim_left.set_frame_data(tex_skeleton, 5, 4, idx_list_left);
 
 		anim_up_sketch.set_loop(true);
 		anim_up_sketch.set_interval(0.1);
-		anim_up_sketch.set_frame_data(tex_skeleton_sketch, 6, 4, idx_list_up);
+		anim_up_sketch.set_frame_data(tex_skeleton_sketch, 5, 4, idx_list_up);
 
 		anim_down_sketch.set_loop(true);
 		anim_down_sketch.set_interval(0.1);
-		anim_down_sketch.set_frame_data(tex_skeleton_sketch, 6, 4, idx_list_down);
+		anim_down_sketch.set_frame_data(tex_skeleton_sketch, 5, 4, idx_list_down);
 
 		anim_right_sketch.set_loop(true);
 		anim_right_sketch.set_interval(0.1);
-		anim_right_sketch.set_frame_data(tex_skeleton_sketch, 6, 4, idx_list_right);
+		anim_right_sketch.set_frame_data(tex_skeleton_sketch, 5, 4, idx_list_right);
 
 		anim_left_sketch.set_loop(true);
 		anim_left_sketch.set_interval(0.1);
-		anim_left_sketch.set_frame_data(tex_skeleton_sketch, 6, 4, idx_list_left);
+		anim_left_sketch.set_frame_data(tex_skeleton_sketch, 5, 4, idx_list_left);
 
 		max_hp = skeleton_template.hp;
 		max_speed = skeleton_template.speed;

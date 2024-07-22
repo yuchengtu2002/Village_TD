@@ -7,6 +7,10 @@
 #include "manager.h"
 #include "config_manager.h"
 #include "resource_manager.h"
+#include "enemy_manager.h"
+#include "home_manager.h"
+#include "coin_manager.h"
+#include "wave_manager.h"
 
 using namespace std;
 
@@ -107,13 +111,19 @@ private:
 	}
 
 	void on_update(double delta) {
-		// Update game logic here
+		static ConfigManager* config = ConfigManager::instance();
+		if (!config->is_game_over) {
+			WaveManager::instance()->on_update(delta);
+			EnemyManager::instance()->on_update(delta);
+		}
 	}
 
 	void on_render() {
 		static ConfigManager* instance = ConfigManager::instance();
 		static SDL_Rect& rect_dst = instance->rect_tile_map;
 		SDL_RenderCopy(renderer, tex_tile_map, nullptr, &rect_dst);
+
+		EnemyManager::instance()->on_render(renderer);
 	}
 
 	bool generate_tile_map_texture()

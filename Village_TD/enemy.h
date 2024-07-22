@@ -23,7 +23,7 @@ public:
 		timer_sketch.set_one_shot(true);
 		timer_sketch.set_wait_time(0.1);
 		timer_sketch.set_on_timeout([this]() {
-			is_sketch = !is_sketch;
+			is_sketch = false;
 		});
 
 		timer_restore_speed.set_one_shot(true);
