@@ -140,6 +140,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animation.h" />
+    <ClInclude Include="arrow_bullet.h" />
+    <ClInclude Include="axe_bullet.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="coin_manager.h" />
     <ClInclude Include="config_manager.h" />
@@ -149,6 +151,7 @@
     <ClInclude Include="goblin_enemy.h" />
     <ClInclude Include="goblin_priest.h" />
     <ClInclude Include="home_manager.h" />
+    <ClInclude Include="shell_bullet.h" />
     <ClInclude Include="skeleton_enemy.h" />
     <ClInclude Include="slim_king_enemy.h" />
     <ClInclude Include="timer.h" />

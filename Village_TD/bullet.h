@@ -40,7 +40,7 @@ public:
 	}
 
 	double get_damage_range() const {
-		return range;
+		return damage_range;
 	}
 
 	void disable_collide() {
@@ -81,7 +81,7 @@ public:
 
 	}
 
-	virtual void on_collision(Enemy* enemy) {
+	virtual void on_collide(Enemy* enemy) {
 		is_valid = false;
 		is_collisional = false;
 	}
@@ -97,7 +97,7 @@ protected:
 	bool can_rotate = false;
 
 	double damage = 0;
-	double range = -1;
+	double damage_range = -1;
 
 
 
