@@ -11,6 +11,9 @@
 #include "home_manager.h"
 #include "coin_manager.h"
 #include "wave_manager.h"
+#include "tower_manager.h"
+#include "bullet_manager.h"
+
 
 using namespace std;
 
@@ -20,6 +23,9 @@ class GameManager : public Manager<GameManager> {
 
 public:
 	int run() {
+		TowerManager* tower_manager = TowerManager::instance();
+		tower_manager->place_tower(TowerType::Archer, { 5, 10 });
+
 		Uint64 LAST = SDL_GetPerformanceCounter();
 		const Uint64 FREQUENCY = SDL_GetPerformanceFrequency();
 
@@ -115,6 +121,8 @@ private:
 		if (!config->is_game_over) {
 			WaveManager::instance()->on_update(delta);
 			EnemyManager::instance()->on_update(delta);
+			BulletManager::instance()->on_update(delta);
+			TowerManager::instance()->on_update(delta);
 		}
 	}
 
@@ -124,6 +132,8 @@ private:
 		SDL_RenderCopy(renderer, tex_tile_map, nullptr, &rect_dst);
 
 		EnemyManager::instance()->on_render(renderer);
+		BulletManager::instance()->on_render(renderer);
+		TowerManager::instance()->on_render(renderer);
 	}
 
 	bool generate_tile_map_texture()
