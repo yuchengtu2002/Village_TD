@@ -36,7 +36,8 @@ public:
 		const Uint64 FREQUENCY = SDL_GetPerformanceFrequency();
 
 		while (is_running) {
-			on_input();
+			while (SDL_PollEvent(&event))
+				on_input();
 
 			Uint64 CURRENT = SDL_GetPerformanceCounter();
 			double delta = (CURRENT - LAST) / static_cast<double>(FREQUENCY);
@@ -122,45 +123,48 @@ private:
 		exit(-1);  // Exit if initialization fails
 	}
 
-void on_input() {
-    static SDL_Point pos_centre;
-    static SDL_Point idx_tile_selected;
-    static ConfigManager* config = ConfigManager::instance();
+	void on_input()
+	{
+		static SDL_Point pos_center;
+		static SDL_Point idx_tile_selected;
+		static ConfigManager* instance = ConfigManager::instance();
 
-    // Poll for events
-    while (SDL_PollEvent(&event)) {
-        switch (event.type) {
-            case SDL_QUIT:
-                is_running = false;
-                break;
-            case SDL_MOUSEBUTTONDOWN:
-                if (config->is_game_over)
-                    break;
-                if (get_cursor_idx_tile(idx_tile_selected, event.motion.x, event.motion.y)) {
-                    get_selected_tile_center_pos(pos_centre, idx_tile_selected);
+		switch (event.type)
+		{
+		case SDL_QUIT:
+			is_running = false;
+			break;
+		case SDL_MOUSEBUTTONDOWN:
+			if (instance->is_game_over)
+				break;
+			if (get_cursor_idx_tile(idx_tile_selected, event.motion.x, event.motion.y))
+			{
+				get_selected_tile_center_pos(pos_center, idx_tile_selected);
 
-                    if (check_home(idx_tile_selected)) {
-                        upgrade_panel->set_idx_tile(idx_tile_selected);
-                        upgrade_panel->set_center_pos(pos_centre);
-                        upgrade_panel->show();
-                    }
-                    else if (can_place_tower(idx_tile_selected)) {
-                        place_panel->set_idx_tile(idx_tile_selected);
-                        place_panel->set_center_pos(pos_centre);
-                        place_panel->show();
-                    }
-                }
-                break;
-            default:
-                break;
-        }
-    }
+				if (check_home(idx_tile_selected))
+				{
+					upgrade_panel->set_idx_tile(idx_tile_selected);
+					upgrade_panel->set_center_pos(pos_center);
+					upgrade_panel->show();
+				}
+				else if (can_place_tower(idx_tile_selected))
+				{
+					place_panel->set_idx_tile(idx_tile_selected);
+					place_panel->set_center_pos(pos_center);
+					place_panel->show();
+				}
+			}
+			break;
+		default:
+			break;
+		}
 
-    if (!config->is_game_over) {
-        place_panel->on_input(event);
-        upgrade_panel->on_input(event);
-    }
-}
+		if (!instance->is_game_over)
+		{
+			place_panel->on_input(event);
+			upgrade_panel->on_input(event);
+		}
+	}
 
 
 	void on_update(double delta) {

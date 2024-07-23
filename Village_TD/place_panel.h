@@ -65,18 +65,38 @@ public:
 	}
 
 protected:
-	void on_click_top_area() override {
-		TowerManager::instance()->place_tower(TowerType::Axeman, idx_tile_selected);
+	void on_click_top_area() override
+	{
+		CoinManager* instance = CoinManager::instance();
+
+		if (val_top <= instance->get_current_coin())
+		{
+			TowerManager::instance()->place_tower(TowerType::Axeman, idx_tile_selected);
+			instance->decrease_coin(val_top);
+		}
 	}
 
-	void on_click_left_area() override {
-		TowerManager::instance()->place_tower(TowerType::Archer, idx_tile_selected);
+	void on_click_left_area() override
+	{
+		CoinManager* instance = CoinManager::instance();
+
+		if (val_left <= instance->get_current_coin())
+		{
+			TowerManager::instance()->place_tower(TowerType::Archer, idx_tile_selected);
+			instance->decrease_coin(val_left);
+		}
 	}
 
-	void on_click_right_area() override {
-		TowerManager::instance()->place_tower(TowerType::Gunner, idx_tile_selected);
-	}
+	void on_click_right_area() override
+	{
+		CoinManager* instance = CoinManager::instance();
 
+		if (val_right <= instance->get_current_coin())
+		{
+			TowerManager::instance()->place_tower(TowerType::Gunner, idx_tile_selected);
+			instance->decrease_coin(val_right);
+		}
+	}
 
 private:
 	const SDL_Color color_region_frame = { 30, 80, 162, 175 };

@@ -32,27 +32,36 @@ public:
 	}
 	//potential issue
 protected:
-	void on_click_top_area() override {
-		ConfigManager* config = ConfigManager::instance();
-		if (CoinManager::instance()->get_current_coin() >= val_top && val_top > 0) {
-			CoinManager::instance()->decrease_coin(val_top);
+	void on_click_top_area() override
+	{
+		CoinManager* instance = CoinManager::instance();
+
+		if (val_top > 0 && val_top <= instance->get_current_coin())
+		{
 			TowerManager::instance()->upgrade_tower(TowerType::Axeman);
+			instance->decrease_coin(val_top);
 		}
 	}
 
-	void on_click_left_area() override {
-		ConfigManager* config = ConfigManager::instance();
-		if (CoinManager::instance()->get_current_coin() >= val_left && val_left > 0) {
-			CoinManager::instance()->decrease_coin(val_left);
-			TowerManager::instance()->upgrade_tower(TowerType::Archer);
+	void on_click_left_area() override
+	{
+		CoinManager* instance = CoinManager::instance();
+
+		if (val_left > 0 && val_left <= instance->get_current_coin())
+		{
+			TowerManager::instance()->upgrade_tower(TowerType::Axeman);
+			instance->decrease_coin(val_left);
 		}
 	}
 
-	void on_click_right_area() override {
-		ConfigManager* config = ConfigManager::instance();
-		if (CoinManager::instance()->get_current_coin() >= val_right && val_right > 0) {
-			CoinManager::instance()->decrease_coin(val_right);
-			TowerManager::instance()->upgrade_tower(TowerType::Gunner);
+	void on_click_right_area() override
+	{
+		CoinManager* instance = CoinManager::instance();
+
+		if (val_right > 0 && val_right <= instance->get_current_coin())
+		{
+			TowerManager::instance()->upgrade_tower(TowerType::Axeman);
+			instance->decrease_coin(val_right);
 		}
 	}
 
