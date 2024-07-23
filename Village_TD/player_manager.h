@@ -37,7 +37,11 @@ public:
 				is_move_down = true;
 				break;
 			case SDLK_j:
-				on_release_flash();
+				if (can_normal_attack)
+				{
+					can_normal_attack = false;
+					on_release_flash();
+				}
 				break;
 			case SDLK_k:
 				on_release_impact();
@@ -74,6 +78,7 @@ public:
 	{
 		timer_auto_increase_mp.update(delta);
 		timer_release_flash_cd.update(delta);
+		timer_normal_attack_cd.update(delta);
 
 		Vector2 direction =
 			Vector2(is_move_right - is_move_left,
@@ -248,6 +253,11 @@ protected:
 			{
 				can_release_flash = true;
 			});
+
+		timer_normal_attack_cd.set_one_shot(false);
+		timer_normal_attack_cd.set_wait_time(ConfigManager::instance()->player_template.normal_attack_interval);
+		timer_normal_attack_cd.set_on_timeout([&]() { can_normal_attack = true; });
+
 
 		const ResourcesManager::TexturePool& tex_pool
 			= ResourcesManager::instance()->get_texture_pool();

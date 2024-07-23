@@ -9,7 +9,7 @@
     {
         "speed": 5,
         "normal_attack_interval": 1.5,
-        "normal_attack_damage": 25,
+        "normal_attack_damage": 10,
         "skill_interval": 10,
         "skill_damage": 10
     },
