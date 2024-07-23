@@ -5,6 +5,7 @@
 #include "resource_manager.h"
 #include "coin_manager.h"
 #include "home_manager.h"
+#include "player_manager.h"
 #include <string>
 
 class StatusBar {
@@ -92,7 +93,8 @@ public:
 		rect_dst.y += width_border_mp_bar;
 		rect_dst.w = width_mp_bar - 2 * width_border_mp_bar;
 		rect_dst.h = height_mp_bar - 2 * width_border_mp_bar;
-		roundedBoxRGBA(renderer, rect_dst.x, rect_dst.y, rect_dst.x + rect_dst.w, rect_dst.y + rect_dst.h, 2,
+		double mp_ratio = PlayerManager::instance()->get_current_mp() / 100;
+		roundedBoxRGBA(renderer, rect_dst.x, rect_dst.y, rect_dst.x + (int)(rect_dst.w * mp_ratio), rect_dst.y + rect_dst.h, 2,
 			color_mp_bar_foreground.r, color_mp_bar_foreground.g, color_mp_bar_foreground.b, color_mp_bar_foreground.a);
 	}
 

@@ -322,6 +322,7 @@ private:
 	double speed = 0;
 
 	bool can_release_flash = true;
+	bool can_normal_attack = true;
 	bool is_releasing_flash = false;
 	bool is_releasing_impact = false;
 
@@ -351,6 +352,8 @@ private:
 	Animation anim_effect_impact_left;
 	Animation anim_effect_impact_right;
 	Animation* anim_effect_impact_current = nullptr;
+
+	Timer timer_normal_attack_cd;
 
 	Timer timer_release_flash_cd;
 	Timer timer_auto_increase_mp;
