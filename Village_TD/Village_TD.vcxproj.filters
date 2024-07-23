@@ -28,6 +28,9 @@
     <Filter Include="头文件\tower">
       <UniqueIdentifier>{c60a0990-53e2-4e19-9e7c-d97110c9ff0d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\ui">
+      <UniqueIdentifier>{90bb5be5-9534-41b4-bef7-a79f9d932fce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="coin_prop.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="status_bar.h">
+      <Filter>头文件\ui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -13,6 +13,7 @@
 #include "wave_manager.h"
 #include "tower_manager.h"
 #include "bullet_manager.h"
+#include "status_bar.h"
 
 
 using namespace std;
@@ -24,8 +25,8 @@ class GameManager : public Manager<GameManager> {
 public:
 	int run() {
 		TowerManager* tower_manager = TowerManager::instance();
-		tower_manager->place_tower(TowerType::Archer, { 5, 10 });
-		tower_manager->place_tower(TowerType::Archer, { 5, 9 });
+		//tower_manager->place_tower(TowerType::Archer, { 5, 10 });
+		//tower_manager->place_tower(TowerType::Archer, { 5, 9 });
 
 		Uint64 LAST = SDL_GetPerformanceCounter();
 		const Uint64 FREQUENCY = SDL_GetPerformanceFrequency();
@@ -75,10 +76,10 @@ protected:
 		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
 		init_assert(renderer, "Renderer Creation Failed");
 
-		init_assert(ResourcesManager::instance()->load_from_file(renderer), u8"������Ϸ��Դʧ�ܣ�");
-		init_assert(generate_tile_map_texture(), u8"������Ƭ��ͼ����ʧ�ܣ�");
+		init_assert(ResourcesManager::instance()->load_from_file(renderer), "Load Resource Failed");
+		init_assert(generate_tile_map_texture(), "Generate Tile Map Failed");
 
-
+		status_bar.set_position(15, 15);
 	}
 
 	~GameManager() {
@@ -98,6 +99,7 @@ private:
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	SDL_Texture* tex_tile_map = nullptr;
+	StatusBar status_bar;
 
 
 
@@ -120,6 +122,7 @@ private:
 	void on_update(double delta) {
 		static ConfigManager* config = ConfigManager::instance();
 		if (!config->is_game_over) {
+			status_bar.on_update(renderer);
 			WaveManager::instance()->on_update(delta);
 			EnemyManager::instance()->on_update(delta);
 			BulletManager::instance()->on_update(delta);
@@ -135,6 +138,10 @@ private:
 		EnemyManager::instance()->on_render(renderer);
 		BulletManager::instance()->on_render(renderer);
 		TowerManager::instance()->on_render(renderer);
+
+		if (!instance->is_game_over) {
+			status_bar.on_render(renderer);
+		}
 	}
 
 	bool generate_tile_map_texture()
