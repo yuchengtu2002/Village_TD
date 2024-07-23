@@ -160,6 +160,7 @@
     <ClInclude Include="gunner_tower.h" />
     <ClInclude Include="home_manager.h" />
     <ClInclude Include="panel.h" />
+    <ClInclude Include="player_manager.h" />
     <ClInclude Include="shell_bullet.h" />
     <ClInclude Include="skeleton_enemy.h" />
     <ClInclude Include="slim_king_enemy.h" />

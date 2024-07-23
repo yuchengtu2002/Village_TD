@@ -30,7 +30,7 @@ public:
 	struct playerTemplate {
 		double speed = 3;
 		double normal_attack_interval = 0.5;
-		double nomral_attack_damage = 0;
+		double normal_attack_damage = 0;
 		double skill_interval = 5;
 		double skill_damage = 1;
 	};
@@ -265,9 +265,9 @@ private:
 			tpl.normal_attack_interval = json_normal_attack_interval->valuedouble;
 		}
 
-		cJSON* json_nomral_attack_damage = cJSON_GetObjectItem(json_root, "nomral_attack_damage");
-		if (json_nomral_attack_damage && json_nomral_attack_damage->type == cJSON_Number) {
-			tpl.nomral_attack_damage = json_nomral_attack_damage->valuedouble;
+		cJSON* json_normal_attack_damage = cJSON_GetObjectItem(json_root, "normal_attack_damage");
+		if (json_normal_attack_damage && json_normal_attack_damage->type == cJSON_Number) {
+			tpl.normal_attack_damage = json_normal_attack_damage->valuedouble;
 		}
 
 		cJSON* json_skill_interval = cJSON_GetObjectItem(json_root, "skill_interval");

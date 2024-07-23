@@ -167,5 +167,8 @@
     <ClInclude Include="upgrade_panel.h">
       <Filter>头文件\ui\panel</Filter>
     </ClInclude>
+    <ClInclude Include="player_manager.h">
+      <Filter>头文件\manager</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
