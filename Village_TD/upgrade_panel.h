@@ -30,5 +30,30 @@ public:
 
 		Panel::on_render(renderer);
 	}
+	//potential issue
+protected:
+	void on_click_top_area() override {
+		ConfigManager* config = ConfigManager::instance();
+		if (CoinManager::instance()->get_current_coin() >= val_top && val_top > 0) {
+			CoinManager::instance()->decrease_coin(val_top);
+			TowerManager::instance()->upgrade_tower(TowerType::Axeman);
+		}
+	}
+
+	void on_click_left_area() override {
+		ConfigManager* config = ConfigManager::instance();
+		if (CoinManager::instance()->get_current_coin() >= val_left && val_left > 0) {
+			CoinManager::instance()->decrease_coin(val_left);
+			TowerManager::instance()->upgrade_tower(TowerType::Archer);
+		}
+	}
+
+	void on_click_right_area() override {
+		ConfigManager* config = ConfigManager::instance();
+		if (CoinManager::instance()->get_current_coin() >= val_right && val_right > 0) {
+			CoinManager::instance()->decrease_coin(val_right);
+			TowerManager::instance()->upgrade_tower(TowerType::Gunner);
+		}
+	}
 
 };

@@ -4,6 +4,7 @@
 #include "resource_manager.h"
 #include "tower_manager.h"
 #include "SDL2_gfxPrimitives.h"
+#include "coin_manager.h"
 
 class PlacePanel : public Panel {
 public: 
@@ -61,6 +62,19 @@ public:
 
 		Panel::on_render(renderer);
 
+	}
+
+protected:
+	void on_click_top_area() override {
+		TowerManager::instance()->place_tower(TowerType::Axeman, idx_tile_selected);
+	}
+
+	void on_click_left_area() override {
+		TowerManager::instance()->place_tower(TowerType::Archer, idx_tile_selected);
+	}
+
+	void on_click_right_area() override {
+		TowerManager::instance()->place_tower(TowerType::Gunner, idx_tile_selected);
 	}
 
 

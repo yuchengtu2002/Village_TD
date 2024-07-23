@@ -14,6 +14,10 @@
 #include "tower_manager.h"
 #include "bullet_manager.h"
 #include "status_bar.h"
+#include "panel.h"
+#include "place_panel.h"
+#include "upgrade_panel.h"
+
 
 
 using namespace std;
@@ -80,6 +84,9 @@ protected:
 		init_assert(generate_tile_map_texture(), "Generate Tile Map Failed");
 
 		status_bar.set_position(15, 15);
+
+		place_panel = new PlacePanel();
+		upgrade_panel = new UpgradePanel();
 	}
 
 	~GameManager() {
@@ -101,6 +108,10 @@ private:
 	SDL_Texture* tex_tile_map = nullptr;
 	StatusBar status_bar;
 
+	Panel* place_panel = nullptr;
+	Panel* upgrade_panel = nullptr;
+
+
 
 
 private:
@@ -111,13 +122,46 @@ private:
 		exit(-1);  // Exit if initialization fails
 	}
 
-	void on_input() {
-		while (SDL_PollEvent(&event)) {
-			if (event.type == SDL_QUIT) {
-				is_running = false;
-			}
-		}
-	}
+void on_input() {
+    static SDL_Point pos_centre;
+    static SDL_Point idx_tile_selected;
+    static ConfigManager* config = ConfigManager::instance();
+
+    // Poll for events
+    while (SDL_PollEvent(&event)) {
+        switch (event.type) {
+            case SDL_QUIT:
+                is_running = false;
+                break;
+            case SDL_MOUSEBUTTONDOWN:
+                if (config->is_game_over)
+                    break;
+                if (get_cursor_idx_tile(idx_tile_selected, event.motion.x, event.motion.y)) {
+                    get_selected_tile_center_pos(pos_centre, idx_tile_selected);
+
+                    if (check_home(idx_tile_selected)) {
+                        upgrade_panel->set_idx_tile(idx_tile_selected);
+                        upgrade_panel->set_center_pos(pos_centre);
+                        upgrade_panel->show();
+                    }
+                    else if (can_place_tower(idx_tile_selected)) {
+                        place_panel->set_idx_tile(idx_tile_selected);
+                        place_panel->set_center_pos(pos_centre);
+                        place_panel->show();
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    if (!config->is_game_over) {
+        place_panel->on_input(event);
+        upgrade_panel->on_input(event);
+    }
+}
+
 
 	void on_update(double delta) {
 		static ConfigManager* config = ConfigManager::instance();
@@ -127,6 +171,8 @@ private:
 			EnemyManager::instance()->on_update(delta);
 			BulletManager::instance()->on_update(delta);
 			TowerManager::instance()->on_update(delta);
+			place_panel->on_update(renderer);
+			upgrade_panel->on_update(renderer);
 		}
 	}
 
@@ -140,6 +186,8 @@ private:
 		TowerManager::instance()->on_render(renderer);
 
 		if (!instance->is_game_over) {
+			place_panel->on_render(renderer); 
+			upgrade_panel->on_render(renderer); 
 			status_bar.on_render(renderer);
 		}
 	}
@@ -216,5 +264,39 @@ private:
 		SDL_SetRenderTarget(renderer, nullptr);
 
 		return true;
+	}
+
+	bool get_cursor_idx_tile(SDL_Point& idx_tile_selected, int screen_x, int screen_y) const {
+		static const Map& map = ConfigManager::instance()->map;
+		static SDL_Rect& rect_tile_map = ConfigManager::instance()->rect_tile_map;
+
+		if (screen_x < rect_tile_map.x || screen_x >= rect_tile_map.x + rect_tile_map.w ||
+			screen_y < rect_tile_map.y || screen_y >= rect_tile_map.y + rect_tile_map.h) {
+			return false;
+		}
+
+		idx_tile_selected.x = std::min((screen_x - rect_tile_map.x) / TILE_SIZE, (int)map.get_width()-1);
+		idx_tile_selected.y = std::min((screen_y - rect_tile_map.y) / TILE_SIZE, (int)map.get_height()-1);
+
+		return true;
+	}
+
+	bool can_place_tower(const SDL_Point& idx_tile_selected) {
+		static const Map& map = ConfigManager::instance()->map;
+		const Tile& tile = map.get_tile_map()[idx_tile_selected.y][idx_tile_selected.x];
+
+		return (tile.decoration < 0 && tile.direction == Tile::Direction::None && !tile.has_tower);
+	}
+
+	void get_selected_tile_center_pos(SDL_Point& pos, const SDL_Point& idx_tile_selected) const {
+		static const SDL_Rect& rect_tile_map = ConfigManager::instance()->rect_tile_map;
+		pos.x = rect_tile_map.x + idx_tile_selected.x * TILE_SIZE + TILE_SIZE / 2;
+		pos.y = rect_tile_map.y + idx_tile_selected.y * TILE_SIZE + TILE_SIZE / 2;
+	}
+
+	bool check_home(const SDL_Point& idx_tile_selected) {
+		static const Map& map = ConfigManager::instance()->map;
+		const SDL_Point& idx_home = map.get_home_idx();
+		return (idx_tile_selected.x == idx_home.x && idx_tile_selected.y == idx_home.y);
 	}
 };

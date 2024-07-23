@@ -73,7 +73,7 @@ public:
 
 			hovered_target = HoveredTarget::None;
 		}
-		break;
+			break;
 		case SDL_MOUSEBUTTONUP:
 		{
 			switch (hovered_target)
@@ -176,7 +176,7 @@ public:
 		if (hovered_target == HoveredTarget::None)
 			return;
 
-		SDL_Rect rect_dst_text = { 0 } ;
+		SDL_Rect rect_dst_text = { 0 };
 
 		rect_dst_text.x = center_pos.x - width_text / 2 + offset_shadow.x;
 		rect_dst_text.y = center_pos.y + height / 2 + offset_shadow.y;
