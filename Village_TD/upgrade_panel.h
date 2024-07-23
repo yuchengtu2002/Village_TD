@@ -3,6 +3,7 @@
 #include "panel.h"
 #include "tower_manager.h"
 #include "resource_manager.h"
+#include <stdio.h>
 
 class UpgradePanel : public Panel {
 public:
@@ -38,6 +39,8 @@ protected:
 
 		if (val_top > 0 && val_top <= instance->get_current_coin())
 		{
+			std::cout << "upgrade top" << std::endl;
+
 			TowerManager::instance()->upgrade_tower(TowerType::Axeman);
 			instance->decrease_coin(val_top);
 		}
@@ -49,7 +52,9 @@ protected:
 
 		if (val_left > 0 && val_left <= instance->get_current_coin())
 		{
-			TowerManager::instance()->upgrade_tower(TowerType::Axeman);
+			std::cout << "upgrade left" << std::endl;
+
+			TowerManager::instance()->upgrade_tower(TowerType::Archer);
 			instance->decrease_coin(val_left);
 		}
 	}
@@ -60,7 +65,9 @@ protected:
 
 		if (val_right > 0 && val_right <= instance->get_current_coin())
 		{
-			TowerManager::instance()->upgrade_tower(TowerType::Axeman);
+			std::cout << "upgrade right" << std::endl;
+
+			TowerManager::instance()->upgrade_tower(TowerType::Gunner);
 			instance->decrease_coin(val_right);
 		}
 	}

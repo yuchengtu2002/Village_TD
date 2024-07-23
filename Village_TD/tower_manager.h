@@ -132,6 +132,10 @@ public:
 			config->level_axeman++;
 			break;
 		}
+		static const ResourcesManager::SoundPool& sound_pool
+			= ResourcesManager::instance()->get_sound_pool();
+
+		Mix_PlayChannel(-1, sound_pool.find(ResID::Sound_TowerLevelUp)->second, 0);
 	}
 
 protected:
