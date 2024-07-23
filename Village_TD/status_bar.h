@@ -66,7 +66,7 @@ public:
 		SDL_RenderCopy(renderer, tex_coin, nullptr, &rect_dst);
 
 		//Coin text with shadow
-		rect_dst.x += 32 + 10 + offset_shadow.x;
+		rect_dst.x += 32 + 8 + offset_shadow.x;
 		rect_dst.y = rect_dst.y + (32 - height_text) / 2 + offset_shadow.y;
 		rect_dst.w = width_text, rect_dst.h = height_text;
 		SDL_RenderCopy(renderer, tex_text_bg, nullptr, &rect_dst);
