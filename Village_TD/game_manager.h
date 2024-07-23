@@ -28,6 +28,7 @@ class GameManager : public Manager<GameManager> {
 
 public:
 	int run() {
+		Mix_FadeInMusic(ResourcesManager::instance()->get_music_pool().find(ResID::Music_BGM)->second, -1, 1500);
 		TowerManager* tower_manager = TowerManager::instance();
 		//tower_manager->place_tower(TowerType::Archer, { 5, 10 });
 		//tower_manager->place_tower(TowerType::Archer, { 5, 9 });

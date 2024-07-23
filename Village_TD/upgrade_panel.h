@@ -29,7 +29,7 @@ public:
 		val_left = (int)instance->get_upgrade_cost(TowerType::Archer);
 		val_right = (int)instance->get_upgrade_cost(TowerType::Gunner);
 
-		Panel::on_render(renderer);
+		Panel::on_update(renderer);
 	}
 	//potential issue
 protected:
@@ -39,7 +39,6 @@ protected:
 
 		if (val_top > 0 && val_top <= instance->get_current_coin())
 		{
-			std::cout << "upgrade top" << std::endl;
 
 			TowerManager::instance()->upgrade_tower(TowerType::Axeman);
 			instance->decrease_coin(val_top);
@@ -52,7 +51,6 @@ protected:
 
 		if (val_left > 0 && val_left <= instance->get_current_coin())
 		{
-			std::cout << "upgrade left" << std::endl;
 
 			TowerManager::instance()->upgrade_tower(TowerType::Archer);
 			instance->decrease_coin(val_left);
@@ -65,7 +63,6 @@ protected:
 
 		if (val_right > 0 && val_right <= instance->get_current_coin())
 		{
-			std::cout << "upgrade right" << std::endl;
 
 			TowerManager::instance()->upgrade_tower(TowerType::Gunner);
 			instance->decrease_coin(val_right);
