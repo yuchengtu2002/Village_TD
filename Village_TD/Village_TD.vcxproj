@@ -137,6 +137,7 @@
     <ClCompile Include="axeman_tower.h" />
     <ClCompile Include="game_manager.h" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="place_panel.h" />
     <ClCompile Include="slim_enemy.h" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
@@ -172,6 +173,7 @@
     <ClInclude Include="tower.h" />
     <ClInclude Include="tower_manager.h" />
     <ClInclude Include="tower_type.h" />
+    <ClInclude Include="upgrade_panel.h" />
     <ClInclude Include="vector2.h" />
     <ClInclude Include="wave.h" />
     <ClInclude Include="wave_manager.h" />

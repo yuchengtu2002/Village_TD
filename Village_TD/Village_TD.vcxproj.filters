@@ -31,6 +31,9 @@
     <Filter Include="头文件\ui">
       <UniqueIdentifier>{90bb5be5-9534-41b4-bef7-a79f9d932fce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\ui\panel">
+      <UniqueIdentifier>{88cafe51-d8ed-41e7-b154-0cef52ed512f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -53,6 +56,9 @@
     </ClCompile>
     <ClCompile Include="axeman_tower.h">
       <Filter>头文件\tower</Filter>
+    </ClCompile>
+    <ClCompile Include="place_panel.h">
+      <Filter>头文件\ui\panel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,11 +158,14 @@
     <ClInclude Include="coin_prop.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="status_bar.h">
-      <Filter>头文件\ui</Filter>
-    </ClInclude>
     <ClInclude Include="panel.h">
-      <Filter>头文件\ui</Filter>
+      <Filter>头文件\ui\panel</Filter>
+    </ClInclude>
+    <ClInclude Include="status_bar.h">
+      <Filter>头文件\ui\panel</Filter>
+    </ClInclude>
+    <ClInclude Include="upgrade_panel.h">
+      <Filter>头文件\ui\panel</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
