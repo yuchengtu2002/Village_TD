@@ -11,6 +11,8 @@
 #include "skeleton_enemy.h"
 #include "goblin_enemy.h"
 #include "goblin_priest.h"
+#include "bullet_manager.h"
+#include  "coin_manager.h"
 
 class EnemyManager : public Manager<EnemyManager>
 {
@@ -25,6 +27,8 @@ public:
 		}
 		process_bullet_collision();
 		process_home_collision();
+
+		remove_invalid_enemies();
 	}
 
 	void on_render(SDL_Renderer* renderer) {
@@ -140,7 +144,57 @@ private:
 		}
 	}
 
-	void process_bullet_collision() {}
+	void process_bullet_collision() {
+	
+		static BulletManager* bullet_manager = BulletManager::instance();
+		static CoinManager* coin_manager = CoinManager::instance();
+
+		for (Enemy* enemy : enemy_list) {
+			if (enemy->can_remove()) continue;
+
+			const Vector2& pos_enemy = enemy->get_position();
+			const Vector2& size_enemy = enemy->get_size();
+
+			for (Bullet* bullet : bullet_manager->get_bullet_list()) {
+				if (!bullet->can_collide()) continue;
+
+				const Vector2& pos_bullet = bullet->get_position();
+
+				if (pos_bullet.x >= pos_enemy.x - size_enemy.x / 2 &&
+					pos_bullet.x <= pos_enemy.x + size_enemy.x / 2 &&
+					pos_bullet.y >= pos_enemy.y - size_enemy.y / 2 &&
+					pos_bullet.y <= pos_enemy.y + size_enemy.y / 2)
+				{
+					double damage = bullet->get_damage();
+					double damage_range = bullet->get_damage_range();
+
+					if (damage_range < 0) {
+						enemy->decrease_hp(damage);
+						if (enemy->can_remove()) {
+							try_spawn_coin_prop(pos_enemy, enemy->get_reward_ratio());
+						}
+					}
+					else {
+						const Vector2& pos_bullet = bullet->get_position();
+						for (Enemy* enemy_target : enemy_list) {
+							if (enemy_target->can_remove()) continue;
+
+							const Vector2& pos_target = enemy_target->get_position();
+							double distance = (pos_target - pos_bullet).length();
+
+							if (distance <= damage_range) {
+								enemy_target->decrease_hp(damage);
+								if (enemy_target->can_remove()) {
+									try_spawn_coin_prop(pos_target, enemy_target->get_reward_ratio());
+								}
+							}
+						}
+					}
+					bullet->on_collide(enemy);
+				}
+			}
+		}
+	}
 
 	void remove_invalid_enemies() {
 		enemy_list.erase(std::remove_if(enemy_list.begin(), enemy_list.end(),
@@ -150,6 +204,15 @@ private:
 				if (removable) delete enemy;
 				return removable;
 			}), enemy_list.end());
+	}
+
+	void try_spawn_coin_prop(const Vector2& position, double ratio) {
+		static ConfigManager* config = ConfigManager::instance();
+		static CoinManager* coin_manager = CoinManager::instance();
+
+		if ((double)rand() / 100 <= ratio) {
+			coin_manager->create_coin_prop(position);
+		}
 	}
 };
   

@@ -7,6 +7,7 @@
 #include "Route.h"
 #include "config_manager.h"
 #include "SDL.h"
+#include <stdio.h>
 
 class Enemy {
 
@@ -85,20 +86,20 @@ public:
 		static SDL_Rect rect;
 		static const Vector2 size_hp_bar{ 40, 8 };
 		static int offset_y = 2;
-		static const SDL_Color color_boarder = { 116, 185, 124, 255 };
+		static const SDL_Color color_border = { 116, 185, 124, 255 };
 		static const SDL_Color color_hp = { 226, 255, 194, 255 };
 
 		if (hp < max_hp) {
 			rect.x = (int)(position.x - size_hp_bar.x / 2);
 			rect.y = (int)(position.y - size.y / 2 - size_hp_bar.y - offset_y);
-			rect.w = (int)(size_hp_bar.x * hp / max_hp);
+			rect.w = (int)(size_hp_bar.x * (hp / max_hp));
 			rect.h = (int)size_hp_bar.y;
-			SDL_SetRenderDrawColor(renderer, color_boarder.r, color_boarder.g, color_boarder.b, color_boarder.a);
-			SDL_RenderDrawRect(renderer, &rect);
-
-			rect.w = (int)size_hp_bar.x;
 			SDL_SetRenderDrawColor(renderer, color_hp.r, color_hp.g, color_hp.b, color_hp.a);
 			SDL_RenderFillRect(renderer, &rect);
+
+			rect.w = (int)size_hp_bar.x;
+			SDL_SetRenderDrawColor(renderer, color_border.r, color_border.g, color_border.b, color_border.a);
+			SDL_RenderDrawRect(renderer, &rect);
 		}
 	}
 
@@ -119,7 +120,7 @@ public:
 			hp = 0;
 			is_valid = false;
 		}
-		is_sketch = true;
+    	is_sketch = true;
 		timer_sketch.restart();
 	}
 

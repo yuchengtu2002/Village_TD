@@ -27,8 +27,8 @@ public:
 	}
 
 
-	void set_damage(double damange) {
-		this->damage = damange;
+	void set_damage(double damage) {
+		this->damage = damage;
 	}
 
 	const Vector2& get_position() const {

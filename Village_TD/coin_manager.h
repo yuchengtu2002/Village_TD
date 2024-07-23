@@ -16,10 +16,6 @@ public:
 		num_coin += val;
 	}
 
-	double get_current_coin() {
-		return num_coin;
-	}
-
 	void decrease_coin(double val) {
 		num_coin -= val;
 		if (num_coin <= 0) {

@@ -25,6 +25,7 @@ public:
 	int run() {
 		TowerManager* tower_manager = TowerManager::instance();
 		tower_manager->place_tower(TowerType::Archer, { 5, 10 });
+		tower_manager->place_tower(TowerType::Archer, { 5, 9 });
 
 		Uint64 LAST = SDL_GetPerformanceCounter();
 		const Uint64 FREQUENCY = SDL_GetPerformanceFrequency();
@@ -74,8 +75,8 @@ protected:
 		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
 		init_assert(renderer, "Renderer Creation Failed");
 
-		init_assert(ResourcesManager::instance()->load_from_file(renderer), u8"¼ÓÔØÓÎÏ·×ÊÔ´Ê§°Ü£¡");
-		init_assert(generate_tile_map_texture(), u8"Éú³ÉÍßÆ¬µØÍ¼ÎÆÀíÊ§°Ü£¡");
+		init_assert(ResourcesManager::instance()->load_from_file(renderer), u8"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½Ô´Ê§ï¿½Ü£ï¿½");
+		init_assert(generate_tile_map_texture(), u8"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¬ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½");
 
 
 	}

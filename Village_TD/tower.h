@@ -254,6 +254,4 @@ private:
 	}
 
 };
-
-
 #endif // !_TOWER_H_
