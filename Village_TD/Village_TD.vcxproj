@@ -164,7 +164,7 @@
     <ClInclude Include="player_manager.h" />
     <ClInclude Include="shell_bullet.h" />
     <ClInclude Include="skeleton_enemy.h" />
-    <ClInclude Include="slim_king_enemy.h" />
+    <ClInclude Include="king_slim_enemy.h" />
     <ClInclude Include="status_bar.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="manager.h" />

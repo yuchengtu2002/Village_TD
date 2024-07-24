@@ -7,7 +7,7 @@
 #include "home_manager.h"
 #include <vector>
 #include "slim_enemy.h"
-#include "slim_king_enemy.h"
+#include "king_slim_enemy.h"
 #include "skeleton_enemy.h"
 #include "goblin_enemy.h"
 #include "goblin_priest.h"

@@ -14,7 +14,7 @@ public:
 		static SDL_Texture* tex_slime_king_sketch = texture_pool.find(ResID::Tex_KingSlimeSketch)->second;
 
 		static ConfigManager* config = ConfigManager::instance();
-		static ConfigManager::enemyTemplate& slim_king_template = ConfigManager::instance()->slim_king_template;
+		static ConfigManager::enemyTemplate& king_slim_template = ConfigManager::instance()->king_slim_template;
 
 		static const std::vector<int> idx_list_up = { 6, 7, 8, 9, 10, 11 };
 		static const std::vector<int> idx_list_down = { 0, 1, 2, 3, 4, 5 };
@@ -53,13 +53,13 @@ public:
 		anim_left_sketch.set_interval(0.1);
 		anim_left_sketch.set_frame_data(tex_slime_king_sketch, 6, 4, idx_list_left);
 
-		max_hp = slim_king_template.hp;
-		max_speed = slim_king_template.speed;
-		damage = slim_king_template.damage;
-		reward_ratio = slim_king_template.reward_ratio;
-		recover_interval = slim_king_template.recover_interval;
-		recover_range = slim_king_template.recover_range;
-		recover_amount = slim_king_template.recover_amount;
+		max_hp = king_slim_template.hp;
+		max_speed = king_slim_template.speed;
+		damage = king_slim_template.damage;
+		reward_ratio = king_slim_template.reward_ratio;
+		recover_interval = king_slim_template.recover_interval;
+		recover_range = king_slim_template.recover_range;
+		recover_amount = king_slim_template.recover_amount;
 
 		size.x = 48, size.y = 48;
 		hp = max_hp;

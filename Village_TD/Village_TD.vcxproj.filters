@@ -116,7 +116,7 @@
     <ClInclude Include="skeleton_enemy.h">
       <Filter>头文件\enemy</Filter>
     </ClInclude>
-    <ClInclude Include="slim_king_enemy.h">
+    <ClInclude Include="king_slim_enemy.h">
       <Filter>头文件\enemy</Filter>
     </ClInclude>
     <ClInclude Include="enemy.h">

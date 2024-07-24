@@ -77,7 +77,7 @@ public:
 	towerTemplate gunner_template;
 	
 	enemyTemplate slim_template;
-	enemyTemplate slim_king_template;
+	enemyTemplate king_slim_template;
 	enemyTemplate skeleton_template;
 	enemyTemplate goblin_template;
 	enemyTemplate goblin_preist_template;
@@ -222,7 +222,7 @@ public:
 		parse_tower_template(gunner_template, cJSON_GetObjectItem(json_tower, "gunner"));
 
 		parse_enemy_template(slim_template, cJSON_GetObjectItem(json_enemy, "slim"));
-		parse_enemy_template(slim_king_template, cJSON_GetObjectItem(json_enemy, "slim_king"));
+		parse_enemy_template(king_slim_template, cJSON_GetObjectItem(json_enemy, "king_slim"));
 		parse_enemy_template(skeleton_template, cJSON_GetObjectItem(json_enemy, "skeleton"));
 		parse_enemy_template(goblin_template, cJSON_GetObjectItem(json_enemy, "goblin"));
 		parse_enemy_template(goblin_preist_template, cJSON_GetObjectItem(json_enemy, "goblin_priest"));

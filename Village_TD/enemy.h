@@ -112,6 +112,7 @@ public:
 		if (hp > max_hp) {
 			hp = max_hp;
 		}
+		std::cout << "restored health by "<< amount << std::endl;
 	}
 
 	void decrease_hp(double amount) {
