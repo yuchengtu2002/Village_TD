@@ -251,7 +251,7 @@ protected:
 		timer_release_flash_cd.set_on_timeout(
 			[&]()
 			{
-				can_release_flash = true;
+				can_release_flash = true; 
 			});
 
 		timer_normal_attack_cd.set_one_shot(false);

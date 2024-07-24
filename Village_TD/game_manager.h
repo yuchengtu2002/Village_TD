@@ -18,6 +18,7 @@
 #include "place_panel.h"
 #include "upgrade_panel.h"
 #include "player_manager.h"
+#include "banner.h"
 
 
 using namespace std;
@@ -30,8 +31,6 @@ public:
 	int run() {
 		Mix_FadeInMusic(ResourcesManager::instance()->get_music_pool().find(ResID::Music_BGM)->second, -1, 1500);
 		TowerManager* tower_manager = TowerManager::instance();
-		//tower_manager->place_tower(TowerType::Archer, { 5, 10 });
-		//tower_manager->place_tower(TowerType::Archer, { 5, 9 });
 
 		Uint64 LAST = SDL_GetPerformanceCounter();
 		const Uint64 FREQUENCY = SDL_GetPerformanceFrequency();
@@ -89,6 +88,8 @@ protected:
 
 		place_panel = new PlacePanel();
 		upgrade_panel = new UpgradePanel();
+
+		banner = new Banner(); 
 	}
 
 	~GameManager() {
@@ -113,7 +114,7 @@ private:
 	Panel* place_panel = nullptr;
 	Panel* upgrade_panel = nullptr;
 
-
+	Banner* banner = nullptr;
 
 
 private:
@@ -170,6 +171,8 @@ private:
 
 
 	void on_update(double delta) {
+		static bool is_game_over_last_tick = false;
+
 		static ConfigManager* config = ConfigManager::instance();
 		if (!config->is_game_over) {
 			status_bar.on_update(renderer);
@@ -180,6 +183,21 @@ private:
 			PlayerManager::instance()->on_update(delta); 
 			place_panel->on_update(renderer);
 			upgrade_panel->on_update(renderer);
+			return;
+		}
+
+		if (!is_game_over_last_tick && config->is_game_over) {
+				static const ResourcesManager::SoundPool& sound_pool = ResourcesManager::instance()->get_sound_pool();
+
+				Mix_FadeOutMusic(1500);
+				Mix_PlayChannel(-1, sound_pool.find(config->is_game_win ? ResID::Sound_Win : ResID::Sound_Loss)->second, 0);
+			}
+
+		is_game_over_last_tick = config->is_game_over;
+
+		banner->on_update(delta);
+		if (banner->is_end()) {
+			is_running = false;
 		}
 	}
 
@@ -197,7 +215,14 @@ private:
 			place_panel->on_render(renderer); 
 			upgrade_panel->on_render(renderer); 
 			status_bar.on_render(renderer);
+			return;
 		}
+
+		int width_screen, height_screen;
+		SDL_GetWindowSizeInPixels(window, &width_screen, &height_screen);
+		Vector2 centrePos = { (double)width_screen / 2, (double)height_screen / 2 };
+		banner->set_centre_position(centrePos);
+		banner->on_render(renderer);
 	}
 
 	bool generate_tile_map_texture()

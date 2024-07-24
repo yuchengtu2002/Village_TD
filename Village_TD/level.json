@@ -22,14 +22,5 @@
 				"point":	1,
 				"enemy":	"Skeleton"
 			}]
-	}, {
-		"interval":	3,
-		"rewards": 100,
-		"spawn_list":	[{
-				"interval":	3,
-				"point":	2,
-				"enemy":	"KingSlim"
-			}]
 	}]
-
 	
