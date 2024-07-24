@@ -156,8 +156,8 @@ public:
 						if (enemy_type == "Slim") {
 							spawn_event.enemy_type = EnemyType::Slim;
 						}
-						else if (enemy_type == "SlimKing") {
-							spawn_event.enemy_type = EnemyType::SlimKing;
+						else if (enemy_type == "KingSlim") {
+							spawn_event.enemy_type = EnemyType::KingSlim;
 						}
 						else if (enemy_type == "Skeleton") {
 							spawn_event.enemy_type = EnemyType::Skeleton;

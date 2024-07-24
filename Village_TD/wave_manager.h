@@ -1,14 +1,3 @@
-#pragma once
-
-#include "manager.h"
-#include "wave.h"
-#include "timer.h"
-#include "wave_manager.h"
-#include "config_manager.h"
-#include "enemy_manager.h"
-#include "coin_manager.h"
-
-
 class WaveManager : public Manager<WaveManager>
 {
 	friend class Manager<WaveManager>;
@@ -32,16 +21,17 @@ public:
 			CoinManager::instance()->increase_coin(waves[idx_wave].rewards);
 			idx_wave++;
 
-			if (idx_wave >= config->waves.size()) {
+			if (idx_wave >= waves.size()) {
 				config->is_game_win = true;
 				config->is_game_over = true;
 				return;
 			}
 			else {
 				idx_spawn_event = 0;
-				is_wave_started = true;
+				is_wave_started = false; // Reset is_wave_started to false
 				is_spawned_last_enemy = false;
 				timer_start_wave.set_wait_time(waves[idx_wave].interval);
+				timer_start_wave.restart(); // Restart the timer for the next wave
 			}
 		}
 	}
@@ -53,14 +43,14 @@ protected:
 
 		timer_start_wave.set_one_shot(true);
 		timer_start_wave.set_wait_time(waves[0].interval);
-		 timer_start_wave.set_on_timeout([this]() {
+		timer_start_wave.set_on_timeout([this]() {
 			is_wave_started = true;
 			timer_spawn_enemy.set_wait_time(waves[idx_wave].spawn_events[0].interval);
 			timer_spawn_enemy.restart();
-		});
+			});
 
-		 timer_spawn_enemy.set_one_shot(true);
-		 timer_spawn_enemy.set_on_timeout([this]() {
+		timer_spawn_enemy.set_one_shot(true);
+		timer_spawn_enemy.set_on_timeout([this]() {
 			const std::vector<Wave::SpawnEvent>& spawn_events = waves[idx_wave].spawn_events;
 			const Wave::SpawnEvent& spawn_event = spawn_events[idx_spawn_event];
 
@@ -74,7 +64,7 @@ protected:
 
 			timer_spawn_enemy.set_wait_time(spawn_events[idx_spawn_event].interval);
 			timer_spawn_enemy.restart();
-		});
+			});
 	};
 
 	~WaveManager() = default;
@@ -88,5 +78,4 @@ private:
 
 	bool is_wave_started = false;
 	bool is_spawned_last_enemy = false;
-
 };

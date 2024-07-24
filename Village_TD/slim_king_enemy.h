@@ -4,10 +4,10 @@
 #include "config_manager.h"
 #include "resource_manager.h"
 
-class SlimKingEnemy : public Enemy {
+class KingSlimEnemy : public Enemy {
 
 public: 
-	SlimKingEnemy() {
+	KingSlimEnemy() {
 		static ResourcesManager* resource = ResourcesManager::instance();
 		static const ResourcesManager::TexturePool& texture_pool = resource->get_texture_pool();
 		static SDL_Texture* tex_slime_king = texture_pool.find(ResID::Tex_KingSlime)->second;
@@ -65,6 +65,6 @@ public:
 		hp = max_hp;
 		speed = max_speed;
 	}
-	~SlimKingEnemy()= default;
+	~KingSlimEnemy()= default;
 
 };

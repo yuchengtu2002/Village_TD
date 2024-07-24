@@ -11,8 +11,8 @@ class Banner {
 public: 
 
 	Banner() {
-		size_foreground = { 646, 224 };
-		size_background = {1282, 209};
+		size_foreground = { 646, 209 };
+		size_background = { 1282, 209 };
 
 		timer_display.set_one_shot(true);
 		timer_display.set_wait_time(5.0);
@@ -37,19 +37,24 @@ public:
 		tex_background = tex_pool.find(ResID::Tex_UIGameOverBar)->second;
 	}
 
-	void on_render(SDL_Renderer* renderer) {
+	void on_render(SDL_Renderer* renderer)
+	{
 		static SDL_Rect rect_dst;
-		rect_dst.x = (int) (pos_center.x - size_background.x / 2);
-		rect_dst.y = (int) (pos_center.y - size_background.y / 2);
-		rect_dst.w = (int) size_background.x;
-		rect_dst.h = (int) size_background.y;
+		
+		rect_dst.x = (int)(pos_center.x - size_background.x / 2);
+		rect_dst.y = (int)(pos_center.y - size_background.y / 2);
+		rect_dst.w = (int)size_background.x, rect_dst.h = (int)size_background.y;
 		SDL_RenderCopy(renderer, tex_background, nullptr, &rect_dst);
 
-		rect_dst.x = (int) (pos_center.x - size_foreground.x / 2);
-		rect_dst.y = (int) (pos_center.y - size_foreground.y / 2);
-		rect_dst.w = (int) size_foreground.x;
-		rect_dst.h = (int) size_foreground.y;
-		SDL_RenderCopy(renderer, tex_foreground, nullptr, &rect_dst);	
+		rect_dst.x = (int)(pos_center.x - size_foreground.x / 2);
+		rect_dst.y = (int)(pos_center.y - size_foreground.y / 2);
+		rect_dst.w = (int)size_foreground.x, rect_dst.h = (int)size_foreground.y;
+		SDL_RenderCopy(renderer, tex_foreground, nullptr, &rect_dst);
+	}
+
+	bool check_end_dispaly() const
+	{
+		return is_end_display;
 	}
 
 	bool is_end() const {

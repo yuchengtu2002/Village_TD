@@ -50,8 +50,8 @@ public:
 			case EnemyType::Slim:
 			enemy = new SlimEnemy();
 			break;
-		case EnemyType::SlimKing:
-			enemy = new SlimKingEnemy();
+		case EnemyType::KingSlim:
+			enemy = new KingSlimEnemy();
 			break;
 		case EnemyType::Skeleton:
 			enemy = new SkeletonEnemy();
