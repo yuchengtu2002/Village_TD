@@ -15,7 +15,7 @@ public:
 		size_background = { 1282, 209 };
 
 		timer_display.set_one_shot(true);
-		timer_display.set_wait_time(5.0);
+		timer_display.set_wait_time(2.0);
 		timer_display.set_on_timeout([&]() {
 			is_end_display = true;
 		});
@@ -52,10 +52,6 @@ public:
 		SDL_RenderCopy(renderer, tex_foreground, nullptr, &rect_dst);
 	}
 
-	bool check_end_dispaly() const
-	{
-		return is_end_display;
-	}
 
 	bool is_end() const {
 		return is_end_display;

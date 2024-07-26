@@ -56,6 +56,47 @@ public:
 		return 0;
 	}
 
+
+    void handle_game_over_input() {
+        bool input_handled = false;
+        while (!input_handled && SDL_WaitEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                is_running = false;
+                input_handled = true;
+            }
+            else if (event.type == SDL_KEYDOWN) {
+                if (event.key.keysym.sym == SDLK_y) {
+                    is_running = true;
+                    cout << "received y input" << endl;
+                    input_handled = true;
+                }
+                else if (event.key.keysym.sym == SDLK_n || event.key.keysym.sym == SDLK_x) {
+                    is_running = false;
+                    input_handled = true;
+                }
+            }
+        }
+    }
+
+	void reset_game(){
+		ConfigManager* config = ConfigManager::instance();
+        config->is_game_over = false;
+        config->is_game_win = false;
+
+        EnemyManager::instance()->reset();
+        HomeManager::instance()->reset();
+        CoinManager::instance()->reset();
+        WaveManager::instance()->reset();
+        TowerManager::instance()->reset();
+        PlayerManager::instance()->reset();
+
+        ConfigManager::instance()->map.load("map.csv");
+        generate_tile_map_texture();
+
+        status_bar.set_position(15, 15);
+        cout << "Game Reset" << endl;
+	}
+	
 protected:
 	GameManager() {
 		init_assert(SDL_Init(SDL_INIT_EVERYTHING) == 0, "SDL Initialization Failed");
@@ -197,7 +238,11 @@ private:
 
 		banner->on_update(delta);
 		if (banner->is_end()) {
-			is_running = false;
+			handle_game_over_input();
+		}
+
+		if (is_running) {
+			reset_game();
 		}
 	}
 
