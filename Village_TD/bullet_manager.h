@@ -71,6 +71,12 @@ public:
 		bullet_list.push_back(bullet);
 	}
 
+	void reset() {
+		for (Bullet* bullet : bullet_list)
+			delete bullet;
+		bullet_list.clear();
+	}
+
 protected:
 	BulletManager() = default;
 

@@ -332,4 +332,6 @@ private:
 		const SDL_Point& idx_home = map.get_home_idx();
 		return (idx_tile_selected.x == idx_home.x && idx_tile_selected.y == idx_home.y);
 	}
+
+
 };

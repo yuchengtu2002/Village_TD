@@ -57,6 +57,14 @@ public:
 		coin_prop_list.push_back(coin_prop);
 	}
 
+	void reset() {
+		num_coin = ConfigManager::instance()->initial_coin;
+		for (CoinProp* coin_prop : coin_prop_list) {
+			delete coin_prop;
+		}
+		coin_prop_list.clear();
+	}
+
 protected:
 
 	CoinManager() {

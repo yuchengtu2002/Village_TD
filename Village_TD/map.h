@@ -89,7 +89,21 @@ public:
 		return spwaner_route_pool;
 	}
 
+	void place_tower(const SDL_Point& idx_tile)
+	{
+		tile_map[idx_tile.y][idx_tile.x].has_tower = true;
+	}
 
+	void reset()
+	{
+		for (auto& row : tile_map)
+		{
+			for (auto& tile : row)
+			{
+				tile.has_tower = false;
+			}
+		}
+	}	
 
 private:
 	TileMap tile_map;

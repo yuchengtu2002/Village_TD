@@ -88,6 +88,18 @@ public:
 	const double coin_drop_amount = 20;
 
 public:
+	void reset() {
+		level_archer = 0;
+		level_axeman = 0;
+		level_gunner = 0;
+		is_game_win = false;
+		is_game_over = false;
+		map.reset();
+		waves.clear();
+	}
+
+
+public:
 	bool load_level_config(const std::string& path) {
 		std::ifstream file(path);
 		if (!file.good()) return false;

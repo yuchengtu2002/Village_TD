@@ -25,6 +25,9 @@ public:
 		Mix_PlayChannel(-1, sound_pool.at(ResID::Sound_HomeHurt), 0);
 	}
 
+	void reset() {
+		num_hp = ConfigManager::instance()->initial_hp;
+	}
 
 
 

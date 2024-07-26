@@ -102,6 +102,13 @@ public:
 	}
 
 
+public:
+	void reset() {
+		for (auto& enemy : enemy_list) {
+			delete enemy;
+		}
+		enemy_list.clear();
+	}
 
 protected:
 	EnemyManager() = default;

@@ -108,7 +108,9 @@ public:
 
 		tower->set_position(position);
 		tower_list.push_back(tower); 
-
+		
+		ConfigManager::instance()->map.place_tower(idx);
+		
 		static const ResourcesManager::SoundPool& sound_pool = ResourcesManager::instance()->get_sound_pool();
 		Mix_PlayChannel(-1, sound_pool.find(ResID::Sound_PlaceTower)->second, 0);
 	}
