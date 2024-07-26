@@ -36,6 +36,16 @@ public:
 		}
 	}
 
+
+	void reset() {
+		idx_wave = 0;
+		idx_spawn_event = 0;
+		is_wave_started = false;
+		is_spawned_last_enemy = false;
+		timer_start_wave.set_wait_time(ConfigManager::instance()->waves[0].interval);
+		timer_start_wave.restart();
+	}
+
 protected:
 	WaveManager() {
 		static const ConfigManager* config = ConfigManager::instance();

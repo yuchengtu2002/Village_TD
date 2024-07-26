@@ -239,10 +239,9 @@ private:
 		banner->on_update(delta);
 		if (banner->is_end()) {
 			handle_game_over_input();
-		}
-
-		if (is_running) {
-			reset_game();
+			if (is_running) {
+				reset_game();
+			}
 		}
 	}
 

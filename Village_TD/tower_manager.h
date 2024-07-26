@@ -140,6 +140,13 @@ public:
 		Mix_PlayChannel(-1, sound_pool.find(ResID::Sound_TowerLevelUp)->second, 0);
 	}
 
+	void reset() {
+		for (auto& tower : tower_list) {
+			delete tower;
+		}
+		tower_list.clear();
+	}
+
 protected:
 	TowerManager() = default;
 	~TowerManager() = default;

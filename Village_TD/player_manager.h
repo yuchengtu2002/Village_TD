@@ -233,6 +233,12 @@ public:
 		return mp;
 	}
 
+	void reset() {
+		mp = 100;
+		position.x = ConfigManager::instance()->rect_tile_map.x + ConfigManager::instance()->rect_tile_map.w / 2;
+		position.y = ConfigManager::instance()->rect_tile_map.y + ConfigManager::instance()->rect_tile_map.h / 2;
+	}
+
 protected:
 	PlayerManager()
 	{
