@@ -82,7 +82,7 @@ public:
 		ConfigManager* config = ConfigManager::instance();
         config->is_game_over = false;
         config->is_game_win = false;
-
+		Mix_FadeInMusic(ResourcesManager::instance()->get_music_pool().find(ResID::Music_BGM)->second, -1, 1500);
         EnemyManager::instance()->reset();
         HomeManager::instance()->reset();
         CoinManager::instance()->reset();
@@ -90,7 +90,7 @@ public:
         TowerManager::instance()->reset();
         PlayerManager::instance()->reset();
 
-        ConfigManager::instance()->map.load("map.csv");
+        ConfigManager::instance()->map.load("map2.csv");
         generate_tile_map_texture();
 
         status_bar.set_position(15, 15);
@@ -111,7 +111,7 @@ protected:
 
 		ConfigManager* config = ConfigManager::instance();
 
-		init_assert(config->map.load("map.csv"), "Load Map Failed!");
+		init_assert(config->map.load("map2.csv"), "Load Map Failed!");
 		init_assert(config->load_level_config("level.json"), "Load Level Config Failed");
 		init_assert(config->load_game_config("config.json"), "Load Game Config Failed");
 

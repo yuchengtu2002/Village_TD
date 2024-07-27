@@ -6,56 +6,12 @@
 				"point":	1,
 				"enemy":	"KingSlim"
 			}, {
-				"interval":	0.2,
+				"interval":	1,
 				"point":	2,
 				"enemy":	"KingSlim"
-			}, {
-				"interval":	0.2,
-				"point":	1,
-				"enemy":	"Goblin"
-			}, {
-				"interval":	0.2,
-				"point":	2,
-				"enemy":	"GoblinPriest"
-			}, {
-				"interval":	0.2,
-				"point":	1,
-				"enemy":	"Skeleton"
-			},{
-				"interval":	0.2,
-				"point":	2,
-				"enemy":	"KingSlim"
-			}, {
-				"interval":	0.2,
-				"point":	1,
-				"enemy":	"Goblin"
-			}, {
-				"interval":	0.2,
-				"point":	2,
-				"enemy":	"GoblinPriest"
-			}, {
-				"interval":	0.2,
-				"point":	1,
-				"enemy":	"Skeleton"
-			},{
-				"interval":	0.2,
-				"point":	2,
-				"enemy":	"KingSlim"
-			}, {
-				"interval":	0.2,
-				"point":	1,
-				"enemy":	"Goblin"
-			}, {
-				"interval":	0.2,
-				"point":	2,
-				"enemy":	"GoblinPriest"
-			}, {
-				"interval":	0.2,
-				"point":	1,
-				"enemy":	"Skeleton"
 			}]
 	}, {
-		"interval":	3,
+		"interval":	1,
 		"rewards": 100,
 		"spawn_list":	[{
 				"interval":	3,
