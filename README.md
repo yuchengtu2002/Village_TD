@@ -1,6 +1,6 @@
 # Village Tower Defense
 
-Welcome to **Village Tower Defense**, a strategic tower defense game where players must defend their village from waves of enemies using various towers and strategic upgrades.
+Welcome to **Village Tower Defense**, a strategic tower defense game where players must defend their village from waves of enemies using various towers and strategic upgrades, and with the help of the dragon.
 
 ## Introduction
 
