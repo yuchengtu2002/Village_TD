@@ -70,6 +70,7 @@ The game relies on the following libraries:
 
 ## Credit
 
-Part and Game resource and tutorial from @VoidMatrix
+Part of Game resource and tutorial from @VoidMatrix 
+https://space.bilibili.com/25864506
 
 
