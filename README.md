@@ -57,8 +57,7 @@ Follow these steps to set up the game on your local machine:
 - **K** Special Attack of Dragon.
 - **P:** Pause and resume the game at any point.
 - **Y:** Restart the game after losing.
-- **N/X:** Exit the game after losing.
-- **Esc:** Quit the game during gameplay.
+- **N:** Exit the game after losing.
 
 ## Dependencies
 
