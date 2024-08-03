@@ -38,12 +38,18 @@ public:
 
 		switch (type)
 		{
+		// case TowerType::Archer:
+		// 	return config->archer_template.build_cost[config->level_archer];
+		// case TowerType::Gunner:
+		// 	return config->gunner_template.build_cost[config->level_gunner];	
+		// case TowerType::Axeman:
+		// 	return config->axeman_template.build_cost[config->level_axeman];
 		case TowerType::Archer:
-			return config->archer_template.build_cost[config->level_archer];
+			return 50;
 		case TowerType::Gunner:
-			return config->gunner_template.build_cost[config->level_gunner];	
+			return 120;	
 		case TowerType::Axeman:
-			return config->axeman_template.build_cost[config->level_axeman];	
+			return 80;
 		default:
 			return 0;
 		}

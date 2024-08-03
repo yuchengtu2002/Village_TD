@@ -20,7 +20,6 @@
 #include "player_manager.h"
 #include "banner.h"
 
-
 using namespace std;
 
 class GameManager : public Manager<GameManager> {
@@ -29,11 +28,19 @@ class GameManager : public Manager<GameManager> {
 
 public:
 	int run() {
-		Mix_FadeInMusic(ResourcesManager::instance()->get_music_pool().find(ResID::Music_BGM)->second, -1, 1500);
+		Mix_Music* music = ResourcesManager::instance()->get_music_pool().find(ResID::Music_BGM)->second;
+
+		Mix_VolumeMusic(32);
+
+		Mix_FadeInMusic(music, -1, 1500);
+
 		TowerManager* tower_manager = TowerManager::instance();
 
 		Uint64 LAST = SDL_GetPerformanceCounter();
 		const Uint64 FREQUENCY = SDL_GetPerformanceFrequency();
+
+		// Show the splash screen
+		showSplashScreen();
 
 		while (is_running) {
 			while (SDL_PollEvent(&event))
@@ -57,46 +64,46 @@ public:
 	}
 
 
-    void handle_game_over_input() {
-        bool input_handled = false;
-        while (!input_handled && SDL_WaitEvent(&event)) {
-            if (event.type == SDL_QUIT) {
-                is_running = false;
-                input_handled = true;
-            }
-            else if (event.type == SDL_KEYDOWN) {
-                if (event.key.keysym.sym == SDLK_y) {
-                    is_running = true;
-                    cout << "received y input" << endl;
-                    input_handled = true;
-                }
-                else if (event.key.keysym.sym == SDLK_n || event.key.keysym.sym == SDLK_x) {
-                    is_running = false;
-                    input_handled = true;
-                }
-            }
-        }
-    }
-
-	void reset_game(){
-		ConfigManager* config = ConfigManager::instance();
-        config->is_game_over = false;
-        config->is_game_win = false;
-		Mix_FadeInMusic(ResourcesManager::instance()->get_music_pool().find(ResID::Music_BGM)->second, -1, 1500);
-        EnemyManager::instance()->reset();
-        HomeManager::instance()->reset();
-        CoinManager::instance()->reset();
-        WaveManager::instance()->reset();
-        TowerManager::instance()->reset();
-        PlayerManager::instance()->reset();
-
-        ConfigManager::instance()->map.load("map2.csv");
-        generate_tile_map_texture();
-
-        status_bar.set_position(15, 15);
-        cout << "Game Reset" << endl;
+	void handle_game_over_input() {
+		bool input_handled = false;
+		while (!input_handled && SDL_WaitEvent(&event)) {
+			if (event.type == SDL_QUIT) {
+				is_running = false;
+				input_handled = true;
+			}
+			else if (event.type == SDL_KEYDOWN) {
+				if (event.key.keysym.sym == SDLK_y) {
+					is_running = true;
+					cout << "received y input" << endl;
+					input_handled = true;
+				}
+				else if (event.key.keysym.sym == SDLK_n || event.key.keysym.sym == SDLK_x) {
+					is_running = false;
+					input_handled = true;
+				}
+			}
+		}
 	}
-	
+
+	void reset_game() {
+		ConfigManager* config = ConfigManager::instance();
+		config->is_game_over = false;
+		config->is_game_win = false;
+		Mix_FadeInMusic(ResourcesManager::instance()->get_music_pool().find(ResID::Music_BGM)->second, -1, 1500);
+		EnemyManager::instance()->reset();
+		HomeManager::instance()->reset();
+		CoinManager::instance()->reset();
+		WaveManager::instance()->reset();
+		TowerManager::instance()->reset();
+		PlayerManager::instance()->reset();
+
+		ConfigManager::instance()->map.load("map2.csv");
+		generate_tile_map_texture();
+
+		status_bar.set_position(15, 15);
+		cout << "Game Reset" << endl;
+	}
+
 protected:
 	GameManager() {
 		init_assert(SDL_Init(SDL_INIT_EVERYTHING) == 0, "SDL Initialization Failed");
@@ -130,7 +137,7 @@ protected:
 		place_panel = new PlacePanel();
 		upgrade_panel = new UpgradePanel();
 
-		banner = new Banner(); 
+		banner = new Banner();
 	}
 
 	~GameManager() {
@@ -156,6 +163,8 @@ private:
 	Panel* upgrade_panel = nullptr;
 
 	Banner* banner = nullptr;
+	bool is_paused = false;
+
 
 
 private:
@@ -176,6 +185,17 @@ private:
 		{
 		case SDL_QUIT:
 			is_running = false;
+			break;
+		case SDL_KEYDOWN:
+			if (event.key.keysym.sym == SDLK_p) { 
+				is_paused = !is_paused;
+				if (is_paused) {
+					cout << "Game Paused" << endl;
+				}
+				else {
+					cout << "Game Resumed" << endl;
+				}
+			}
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 			if (instance->is_game_over)
@@ -212,6 +232,10 @@ private:
 
 
 	void on_update(double delta) {
+		if (is_paused) { // Add this condition to skip updating when paused
+			return;
+		}
+
 		static bool is_game_over_last_tick = false;
 
 		static ConfigManager* config = ConfigManager::instance();
@@ -221,18 +245,18 @@ private:
 			EnemyManager::instance()->on_update(delta);
 			BulletManager::instance()->on_update(delta);
 			TowerManager::instance()->on_update(delta);
-			PlayerManager::instance()->on_update(delta); 
+			PlayerManager::instance()->on_update(delta);
 			place_panel->on_update(renderer);
 			upgrade_panel->on_update(renderer);
 			return;
 		}
 
 		if (!is_game_over_last_tick && config->is_game_over) {
-				static const ResourcesManager::SoundPool& sound_pool = ResourcesManager::instance()->get_sound_pool();
+			static const ResourcesManager::SoundPool& sound_pool = ResourcesManager::instance()->get_sound_pool();
 
-				Mix_FadeOutMusic(1500);
-				Mix_PlayChannel(-1, sound_pool.find(config->is_game_win ? ResID::Sound_Win : ResID::Sound_Loss)->second, 0);
-			}
+			Mix_FadeOutMusic(1500);
+			Mix_PlayChannel(-1, sound_pool.find(config->is_game_win ? ResID::Sound_Win : ResID::Sound_Loss)->second, 0);
+		}
 
 		is_game_over_last_tick = config->is_game_over;
 
@@ -256,8 +280,8 @@ private:
 		PlayerManager::instance()->on_render(renderer);
 
 		if (!instance->is_game_over) {
-			place_panel->on_render(renderer); 
-			upgrade_panel->on_render(renderer); 
+			place_panel->on_render(renderer);
+			upgrade_panel->on_render(renderer);
 			status_bar.on_render(renderer);
 			return;
 		}
@@ -352,8 +376,8 @@ private:
 			return false;
 		}
 
-		idx_tile_selected.x = std::min((screen_x - rect_tile_map.x) / TILE_SIZE, (int)map.get_width()-1);
-		idx_tile_selected.y = std::min((screen_y - rect_tile_map.y) / TILE_SIZE, (int)map.get_height()-1);
+		idx_tile_selected.x = std::min((screen_x - rect_tile_map.x) / TILE_SIZE, (int)map.get_width() - 1);
+		idx_tile_selected.y = std::min((screen_y - rect_tile_map.y) / TILE_SIZE, (int)map.get_height() - 1);
 
 		return true;
 	}
@@ -377,5 +401,61 @@ private:
 		return (idx_tile_selected.x == idx_home.x && idx_tile_selected.y == idx_home.y);
 	}
 
+	void showSplashScreen() {
+		// Load splash screen image
+		static SDL_Texture* splashTexture = ResourcesManager::instance()
+			->get_texture_pool().find(ResID::Splash)->second;
+
+		if (!splashTexture) {
+			std::cerr << "Failed to load splash image: " << IMG_GetError() << std::endl;
+			return;
+		}
+
+		int width_screen, height_screen;
+		SDL_GetWindowSize(window, &width_screen, &height_screen);
+
+		// Durations in seconds
+		const double fadeDuration = 1.0;    // 1 second for fade in and out
+		const double splashDuration = 3.0;  // 3 seconds for full display
+
+		Uint64 startTime = SDL_GetPerformanceCounter();
+		Uint64 freq = SDL_GetPerformanceFrequency();
+
+		double elapsedTime = 0.0;
+		Uint8 alpha = 0; // Start fully transparent for fade-in
+
+		while (elapsedTime < 2 * fadeDuration + splashDuration) {
+			Uint64 currentTime = SDL_GetPerformanceCounter();
+			elapsedTime = (currentTime - startTime) / static_cast<double>(freq);
+
+			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+			SDL_RenderClear(renderer);
+
+			if (elapsedTime < fadeDuration) {
+				// Fade in
+				double fadeInTime = elapsedTime;
+				alpha = static_cast<Uint8>(255 * (fadeInTime / fadeDuration));
+			}
+			else if (elapsedTime < fadeDuration + splashDuration) {
+				// Fully opaque
+				alpha = 255;
+			}
+			else {
+				// Fade out
+				double fadeOutTime = elapsedTime - fadeDuration - splashDuration;
+				alpha = static_cast<Uint8>(255 * (1.0 - fadeOutTime / fadeDuration));
+			}
+
+			SDL_SetTextureAlphaMod(splashTexture, alpha);
+
+			SDL_Rect destRect = { 0, 0, width_screen, height_screen };
+			SDL_RenderCopy(renderer, splashTexture, nullptr, &destRect);
+			SDL_RenderPresent(renderer);
+
+			SDL_Delay(16); // Approx 60 FPS
+		}
+
+		SDL_DestroyTexture(splashTexture);
+	}
 
 };

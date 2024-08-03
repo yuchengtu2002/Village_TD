@@ -50,7 +50,7 @@ public:
 		double reward_ratio = 0.5;
 		double recover_interval = 10;
 		double recover_range = 0;
-		double recover_amount = 25;
+		double recover_amount = 30;
 
 	};
 
@@ -83,8 +83,8 @@ public:
 	enemyTemplate goblin_preist_template;
 
 		
-	const double initial_hp = 10;
-	const double initial_coin = 100;
+	const double initial_hp = 8;
+	const double initial_coin = 260;
 	const double coin_drop_amount = 20;
 
 public:

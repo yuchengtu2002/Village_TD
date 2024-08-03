@@ -178,7 +178,7 @@ public:
 					&& position.y <= rect_hitbox_impact.y + rect_hitbox_impact.h)
 				{
 					enemy->decrease_hp(ConfigManager::instance()->player_template.skill_damage * delta);
-					enemy->slow_down(0.6, 2);
+					enemy->slow_down(0.5, 1.25);
 				}
 			}
 		}

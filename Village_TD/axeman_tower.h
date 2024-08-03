@@ -34,7 +34,7 @@ public:
 
 		tower_type = TowerType::Axeman;
 
-		fire_speed = 5;
+		fire_speed = 7;
 		bullet_type = BulletType::Axe;
 	}
 

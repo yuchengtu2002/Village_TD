@@ -35,7 +35,7 @@ public:
 
 		tower_type = TowerType::Gunner;
 
-		fire_speed = 6;
+		fire_speed = 8;
 		bullet_type = BulletType::Shell;
 	}
 

@@ -22,7 +22,7 @@ public:
 		});
 
 		timer_sketch.set_one_shot(true);
-		timer_sketch.set_wait_time(0.1);
+		timer_sketch.set_wait_time(0.07);
 		timer_sketch.set_on_timeout([this]() {
 			is_sketch = false;
 		});

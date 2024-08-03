@@ -11,7 +11,7 @@
 enum class ResID
 {
 	Tex_Tileset,
-
+	Splash,
 	Tex_Player,
 	Tex_Archer,
 	Tex_Axeman,
@@ -104,7 +104,7 @@ public:
 	bool load_from_file(SDL_Renderer* renderer)
 	{
 		texture_pool[ResID::Tex_Tileset] = IMG_LoadTexture(renderer, "resources/tileset.png");
-
+		texture_pool[ResID::Splash] = IMG_LoadTexture(renderer, "resources/splash.png"); 
 		texture_pool[ResID::Tex_Player] = IMG_LoadTexture(renderer, "resources/player.png");
 		texture_pool[ResID::Tex_Archer] = IMG_LoadTexture(renderer, "resources/tower_archer.png");
 		texture_pool[ResID::Tex_Axeman] = IMG_LoadTexture(renderer, "resources/tower_axeman.png");
