@@ -8,6 +8,7 @@ Welcome to **Village Tower Defense**, a strategic tower defense game where playe
 <p align="center">
   <img src="https://github.com/user-attachments/assets/82a3002b-77fe-44c0-8022-dfaeb7c2032d" alt="Game screenshot" width="720" />
 </p>
+
 ## Features
 
 - **Diverse Enemies:** Face a variety of enemies, including slimes, skeletons, goblins, and more, each with unique abilities and challenges.
