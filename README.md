@@ -13,7 +13,7 @@ Welcome to **Village Tower Defense**, a strategic tower defense game where playe
 
 - **Diverse Enemies:** Face a variety of enemies, including slimes, skeletons, goblins, and more, each with unique abilities and challenges.
 - **Tower Defense Mechanics:** Strategically place towers to defend your village. Upgrade and manage resources effectively to improve your defenses.
-- **RPG Component** Control the dragon to assit your tower defense. Use normal attack and special skill to defeat the monsters.
+- **RPG Component:** Control the dragon to assit your tower defense. Use normal attack and special skill to defeat the monsters.
 - **Resource Management:** Collect coins from defeated enemies to upgrade towers and purchase new defenses.
 - **Dynamic Waves:** Experience progressively challenging enemy waves, requiring adaptable strategies and quick thinking.
 - **Game Pausing:** Pause and resume gameplay at any time with a simple key press, allowing for thoughtful planning and breaks.
